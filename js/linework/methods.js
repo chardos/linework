@@ -33,7 +33,7 @@ Linework.prototype.drawLineTo_queued = function(x, y){
     // console.log('nextpos',self.nextPos);
     // console.log('dest', self.destination);
     if(self.hasReachedDestination(self.direction, self.nextPos, self.destination)){
-      // console.log('reached');
+      console.log('reached');
       self.origin = self.destination;
       self.queue.shift(1);
       if(self.queue.length) {
@@ -48,11 +48,17 @@ Linework.prototype.drawLineTo_queued = function(x, y){
       self.drawLineSegment(ctx, self.currPos, self.nextPos);
       self.currPos =  $.extend({}, self.nextPos);
       self.nextPos = self.getNextPos(self.angle);
-      requestAnimationFrame( step )
+      if (!self.debugMode) {
+        requestAnimationFrame( step )
+      }
     }
   }
-  requestAnimationFrame( step )
-  console.log('requesta');
+  if (!this.debugMode) {
+    requestAnimationFrame( step )
+  }
+  else{
+    setInterval(step, 300)
+  }
 
   return this;
 }
