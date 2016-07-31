@@ -7,7 +7,6 @@ document.body.appendChild(canvas);
 var ctx = canvas.getContext('2d');
 var lines = [];
 
-
 // drawLine() isn't working because it needs to value of the previous drawLine
 // can definitely fix this by storing a queue of functions rather than objects
 // try storing functions in the queue, instead of coordinates and types

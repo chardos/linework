@@ -68,7 +68,10 @@ Linework.prototype.hasReachedDestination = function(direction, nextPos, dest){
 	return true;
 }
 Linework.prototype.kickStart = function(){
-	this.queue[0]()
+	if(!this.isAnimating){
+		this.queue[0]()
+		this.isAnimating = true;
+	}
 }
 
 //move one step forward
