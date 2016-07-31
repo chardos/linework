@@ -26,7 +26,7 @@ Linework.setContext(ctx);
 //     .drawLineTo(150,300)
 var line = new Linework();
 line.setPosition(100, 100);
-line.drawLine(45,100)
+line.drawLine(45,50)
     .drawLine(0,150)
     .drawLine(-30,150)
     .drawLine(0,10)

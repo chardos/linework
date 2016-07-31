@@ -34,6 +34,11 @@ Linework.prototype.drawLineTo_queued = function(x, y){
     // console.log('dest', self.destination);
     if(self.hasReachedDestination(self.direction, self.nextPos, self.destination)){
       console.log('reached');
+
+      //draw the line segment to the destination (instead of the nextPos,
+  		//so it doesn't go past the destination).
+  		self.drawLineSegment(ctx, self.currPos, self.destination);
+      
       self.origin = self.destination;
       self.queue.shift(1);
       if(self.queue.length) {
