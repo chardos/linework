@@ -1,8 +1,18 @@
+Linework.setContext = function (ctx){
+	this.prototype.ctx = ctx;
+}
+//Sets the global speed of all Lineworks
+// Linework.setSpeed = function (speed){
+//   console.log(this.prototype);
+// 	this.prototype.speed = speed;
+// }
+
 Linework.prototype.setPosition = function (x, y){
   this.origin = {x: x, y: y};
   this.currPos = {x: x, y: y};
 	this.queue = [];
 }
+
 
 Linework.prototype.drawLineTo = function (x, y){
   this.queue.push(this.drawLineTo_queued.bind(this, x, y))
@@ -37,8 +47,8 @@ Linework.prototype.drawLineTo_queued = function(x, y){
 
       //draw the line segment to the destination (instead of the nextPos,
   		//so it doesn't go past the destination).
-  		self.drawLineSegment(ctx, self.currPos, self.destination);
-      
+  		self.drawLineSegment(self.ctx, self.currPos, self.destination);
+
       self.origin = self.destination;
       self.queue.shift(1);
       if(self.queue.length) {
@@ -50,7 +60,7 @@ Linework.prototype.drawLineTo_queued = function(x, y){
 
     }
     else{
-      self.drawLineSegment(ctx, self.currPos, self.nextPos);
+      self.drawLineSegment(self.ctx, self.currPos, self.nextPos);
       self.currPos =  $.extend({}, self.nextPos);
       self.nextPos = self.getNextPos(self.angle);
       if (!self.debugMode) {

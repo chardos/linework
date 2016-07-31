@@ -4,7 +4,7 @@ var canvas = document.createElement('canvas');
 canvas.width  = windowWidth;
 canvas.height = windowHeight;
 document.body.appendChild(canvas);
-var ctx = canvas.getContext('2d');
+var context = canvas.getContext('2d');
 var lines = [];
 
 // drawLine() isn't working because it needs to value of the previous drawLine
@@ -16,8 +16,8 @@ var lines = [];
 //Only happening to last drawn.
 
 
-Linework.setContext(ctx);
-
+Linework.setContext(context);
+console.log(Linework.speed);
 // var line = new Linework();
 // line.setPosition(100, 100);
 // line.drawLineTo(45,100)
@@ -25,6 +25,8 @@ Linework.setContext(ctx);
 //     .drawLineTo(500,200)
 //     .drawLineTo(150,300)
 var line = new Linework();
+line.setSpeed(10)
+// line.speed = 5;
 line.setPosition(100, 100);
 line.drawLine(45,50)
     .drawLine(0,150)

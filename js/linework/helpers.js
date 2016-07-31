@@ -1,7 +1,3 @@
-Linework.setContext = function (ctx){
-	this.prototype.ctx = ctx;
-}
-
 
 Linework.prototype.findAngle = function(p1, p2){
   var deg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
@@ -72,38 +68,4 @@ Linework.prototype.kickStart = function(){
 		this.queue[0]()
 		this.isAnimating = true;
 	}
-}
-
-//move one step forward
-Linework.prototype.step = function(self){
-	// check if the current pos has reached (or gone past) the destination
-	if(self.hasReachedDestination(self.direction, self.nextPos, self.destination)){
-
-		//draw the line segment to the destination (instead of the nextPos,
-		//so it doesn't go past the destination).
-		self.drawLineSegment(ctx, self.currPos, self.destination);
-
-		self.queue.shift(1);
-		if(self.queue.length){
-			self.origin = self.destination;
-			self.destination = self.queue[0].position;
-			self.setup();
-		}
-		else{
-			//Queue has been completed.
-			self.origin = self.destination;
-			self.isAnimating = false;
-			self.requiresSetup = true;
-			return;
-		}
-	}
-	else{
-		self.drawLineSegment(ctx, self.currPos, self.nextPos);
-		//set next coordinates
-		self.currPos =  $.extend({}, self.nextPos);
-		self.nextPos = self.getNextPos(self.angle);
-	}
-
-	requestAnimationFrame( self.step.bind(null, self) )
-
 }
