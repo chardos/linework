@@ -104,18 +104,6 @@ export default class LineworkCore {
 	}
 
 	animate() {
-		if (!this.isAnimating && this.queue.length) {
-			const nextItem = this.queue.shift();
-			this.destination = nextItem.func(this.currentPosition);
-			this.angle = this.currentPosition.angleTo(this.destination);
-			this.onComplete = nextItem.onComplete;
-			this.isAnimating = true;
-
-			this.animateStep();
-		}
-	}
-
-	animateStep() {
 		const step = () => {
 			const nextPosition = this.getNextPosition();
 			if (!this.hasReachedDestination()) {
@@ -136,6 +124,14 @@ export default class LineworkCore {
 			}
 		};
 
-		step();
+		if (!this.isAnimating && this.queue.length) {
+			const nextItem = this.queue.shift();
+			this.destination = nextItem.func(this.currentPosition);
+			this.angle = this.currentPosition.angleTo(this.destination);
+			this.onComplete = nextItem.onComplete;
+			this.isAnimating = true;
+
+			step();
+		}
 	}
 }
