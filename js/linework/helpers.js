@@ -1,71 +1,62 @@
 
-Linework.prototype.findAngle = function(p1, p2){
-  var deg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
-	if(deg < 0) deg += 360;
-	return deg;
+/**
+ * Linework helper methods
+ *
+ * @since 0.0.1
+ * @author Richard Tan <chardos@gmail.com>
+ */
+import Point from './point';
+
+export function toRadians(angle) {
+  return angle * Math.PI / 180;
 }
-Linework.prototype.getAngledPosition = function(pos, angle, distance){
-	angle = toRadians(angle)
-	return {
-		x: pos.x + (Math.cos(angle) * distance),
-		y: pos.y + (Math.sin(angle) * distance)
-	}
+
+export function getDirection(angle) {
+  if (angle >= 225 && angle < 315) return 'up';
+  if (angle >= 315 || angle < 45) return 'right';
+  if (angle >= 45 && angle < 315) return 'down';
+  if (angle >= 135 && angle < 225) return 'left';
+
+  return 'unknown';
 }
-Linework.prototype.getNextPos = function(angle){
-	angle = toRadians(angle)
-	return {
-		x: this.currPos.x + (Math.cos(angle) * this.speed),
-		y: this.currPos.y + (Math.sin(angle) * this.speed)
-	}
+
+export function isDefined(variable) {
+  return variable !== undefined && variable !== null;
 }
-Linework.prototype.setup = function(){
-	this.currPos =  $.extend({}, this.origin);
-  this.angle = this.findAngle(this.currPos, this.destination);
-  this.nextPos = this.getNextPos(this.angle);
-  this.direction = this.getDirection(this.angle);
+
+export function isObject(variable) {
+  return isDefined(variable) && typeof variable === 'object';
 }
-Linework.prototype.drawLineSegment = function(ctx, currPos, nextPos){
-	ctx.beginPath();
-	ctx.moveTo(currPos.x, currPos.y);
-	ctx.lineTo(nextPos.x, nextPos.y);
-	ctx.stroke();
-	ctx.closePath();
+
+export function isNumber(variable) {
+  return isDefined(variable) && typeof variable === 'number';
 }
-Linework.prototype.getDirection = function(angle){
-	// Get the direction the line is travelling in
-	// console.log(angle);
-	if(angle >= 225 && angle < 315){
-		return 'up';
-	}
-	else if(angle >= 315 || angle < 45){
-		return 'right';
-	}
-	else if(angle >= 45 && angle < 135){
-		return 'down';
-	}
-	else if(angle >= 135 && angle < 225){
-		// console.log('left');
-		return 'left';
-	}
+
+export function isString(variable) {
+  return isDefined(variable) && typeof variable === 'string';
 }
-Linework.prototype.hasReachedDestination = function(direction, nextPos, dest){
-	if(direction == 'up' && this.nextPos.y > this.destination.y){
-		return false;
-	}
-	if(direction == 'down' && this.nextPos.y < this.destination.y){
-		return false;
-	}
-	if(direction == 'left' && this.nextPos.x > this.destination.x){
-		return false;
-	}
-	if(direction == 'right' && this.nextPos.x < this.destination.x){
-		return false;
-	}
-	return true;
+
+export function isFunction(variable) {
+  return isDefined(variable) && typeof variable === 'function';
 }
-Linework.prototype.kickStart = function(){
-	if(!this.isAnimating){
-		this.queue[0]()
-		this.isAnimating = true;
+
+/**
+ * Wrap position around the window if the position is outside of the windows bounds.
+ *
+ * @param {Point}	pos		Position to check if it is within window's bounds
+ *
+ * @returns {Point} The new position
+ */
+export function wrapAround(pos) {
+	if (pos.x > window.innerWidth) {
+		pos.x = 0;
+	} else if (pos.x < 0) {
+		pos.x = window.innerWidth;
 	}
+	if (pos.y > window.innerHeight) {
+		pos.y = 0;
+	} else if (pos.y < 0) {
+		pos.y = window.innerHeight;
+	}
+	return pos;
 }

@@ -1,41 +1,11 @@
-var windowWidth = window.innerWidth;
-var windowHeight = window.innerHeight;
-var canvas = document.createElement('canvas');
-canvas.width  = windowWidth;
-canvas.height = windowHeight;
+var canvas    = document.createElement('canvas');
+canvas.width  = window.innerWidth;
+canvas.height = window.innerHeight;
+var context   = canvas.getContext('2d');
+
 document.body.appendChild(canvas);
-var context = canvas.getContext('2d');
-var lines = [];
 
-// drawLine() isn't working because it needs to value of the previous drawLine
-// can definitely fix this by storing a queue of functions rather than objects
-// try storing functions in the queue, instead of coordinates and types
-//set speed functions for the class, and instances
-// add curves
-
-//Only happening to last drawn.
-
-
-Linework.setContext(context);
-console.log(Linework.speed);
-// var line = new Linework();
-// line.setPosition(100, 100);
-// line.drawLineTo(45,100)
-//     .drawLineTo(150,200)
-//     .drawLineTo(500,200)
-//     .drawLineTo(150,300)
-var line = new Linework();
-line.setSpeed(10)
-// line.speed = 5;
-line.setPosition(100, 100);
-line.drawLine(45,50)
-    .drawLine(0,150)
-    .drawLine(-30,150)
-    .drawLine(0,10)
-    .drawLine(10,10)
-    .drawLine(0,50)
-    .drawLine(10,50)
-
+//set speed functions for the class, and instances //add curves
 
 // for(var i = 0; i<10; i++){
 // 	lines.push( new Linework() );
@@ -47,3 +17,18 @@ line.drawLine(45,50)
 //   line.drawLineTo(random(0,windowWidth), random(0,windowHeight))
 //   //Start drawing in that direction, with a callback to make the next one
 // })
+
+var line = new Linework.Linework({
+  speed: 1,
+  context: context
+});
+line.setPosition(100, 100)
+    .drawLine(0, 100)
+    .drawLine(45, 50)
+    .drawLine(0, 100)
+    .drawLine(0, 150)
+    .drawLine(-30, 150)
+    .drawLine(0, 10)
+    .drawLine(10, 10)
+    .drawLine(0, 50)
+    .drawLine(10, 50);

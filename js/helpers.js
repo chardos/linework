@@ -1,67 +1,76 @@
-//Figure out a way of composing this into the Line constructor
+/**
+ * Helpers for testing stuff in the browser
+ *
+ * @since 0.0.1
+ * @copyright MIT
+ * @author Richard Tan <chardos@gmail.com>
+ */
 
+/**
+ * Returns a random number between min (inclusive) and max (exclusive)
+ *
+ * @param {number}	min		Minimum value (inclusive)
+ * @param {number}	max 	Maximum value (exclusive)
+ *
+ * @returns {number} A random number between min (inclusive) and max (exclusive)
+ */
+function getRandomFloat(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
+/**
+ * Returns a random integer between min (included) and max (excluded)
+ *
+ * @param {number}	min		Minimum integer (inclusive)
+ * @param {number}	max 	Maximum integer (exclusive)
+ *
+ * @returns {number} A random integer between min (included) and max (excluded)
+ */
+export function getRandomInt(min, max) {
+	return Math.floor(getRandomFloat(min, max));
+}
 
-function move(pos, direction){
-	if(direction == 'up'){
-		return { x: pos.x, y: pos.y - 1};
-	}
-	else if(direction == 'right'){
+/**
+ * Returns a random direction.
+ *
+ * Possible directions: up, right, down, left
+ *
+ * @returns {string} Direction
+ */
+export function getRandomDirection() {
+	const directions = ['up', 'right', 'down', 'left'];
+	const randomIndex = getRandomInt(0, directions.length);
+	return directions[randomIndex];
+}
+
+/**
+ * Move by direction
+ */
+export function move(pos, direction) {
+	if (direction === 'up') {
+		return { x: pos.x, y: pos.y - 1 };
+	} else if (direction === 'right') {
 		return { x: pos.x + 1, y: pos.y };
-	}
-	else if( direction == 'down' ){
+	} else if (direction === 'down') {
 		return { x: pos.x, y: pos.y + 1 };
-	}
-	else if( direction == 'left' ){
+	} else if (direction === 'left') {
 		return { x: pos.x - 1, y: pos.y };
 	}
+	return { x: pos.x, y: pos.y };
 }
 
-function getRandomDirection(n){
-	var directions = ['up', 'right', 'down', 'left'];
-	return directions[n];
-}
-function turnLeftOrRight(direction, n){
+/**
+ *  Turn left or right
+ */
+export function turnLeftOrRight(direction, n) {
 	var directions = ['up', 'right', 'down', 'left'];
 	var direction = directions.indexOf(direction)
-	if(n == 0){ //left
+	if (n === 0) {  // left
 		direction--;
-	}
-	else{ //right
+	} else { // right
 		direction++;
 	}
-	if(direction == 4) direction = 0;
-	if(direction == -1) direction = 3;
+	if (direction === 4) direction = 0;
+	if (direction === -1) direction = 3;
 	return directions[direction]
-}
-
-function wrapAround(pos, lastPos){
-	if(pos.x > windowWidth){
-		pos.x = 0;
-		lastPos.x = 0;
-	}
-	if(pos.x < 0){
-		pos.x = windowWidth;
-		lastPos.x = windowWidth;
-	}
-	if(pos.y > windowHeight){
-		pos.y = 0;
-		lastPos.y = 0;
-	}
-	if(pos.y < 0){
-		pos.y = windowHeight;
-		lastPos.y = windowHeight;
-	}
-	return [pos, lastPos];
-}
-function toRadians(deg){
-	return deg * Math.PI / 180;
-}
-function random(a, b){
-	var range = b - a + 1;
-	return Math.floor(Math.random()*range) + a;
-}
-function randomFloat(a, b){
-	var range = b - a;
-	return Math.random()*range + a;
 }
