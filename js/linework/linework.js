@@ -13,7 +13,6 @@
 * @since 0.0.1
 * @author Richard Tan <chardos@gmail.com>
 */
-import $ from 'jquery';
 import {isDefined, isObject, isNumber, isString, isFunction, wrapAround} from './helpers';
 import LineworkCore from './core';
 import Point from './point';
