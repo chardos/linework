@@ -7,26 +7,26 @@
 
 export default class Point {
   constructor(x, y) {
-    this.x = x;
-    this.y = y;
+    this._x = x;
+    this._y = y;
   }
 
-  get X() {
-    return this.x;
+  get x() {
+    return this._x;
   }
 
-  get Y() {
-    return this.y;
+  get y() {
+    return this._y;
   }
 
   angleTo(point) {
-    const deg = Math.atan2(point.Y - this.Y, point.X - this.X) * 180 / Math.PI;
+    const deg = Math.atan2(point.y - this.y, point.x - this.x) * 180 / Math.PI;
   	if (deg < 0) return deg + 360;
   	return deg;
   }
 
   distanceTo(point) {
-    return Math.sqrt(Math.pow(point.X - this.X, 2) + Math.pow(point.Y - this.Y, 2));
+    return Math.sqrt(Math.pow(point.x - this.x, 2) + Math.pow(point.y - this.y, 2));
   }
 
   moveByAngleAndDistance(angle, distance) {

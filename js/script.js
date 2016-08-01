@@ -19,16 +19,15 @@ document.body.appendChild(canvas);
 // })
 
 var line = new Linework.Linework({
-  speed: 1,
+  speed: 5,
   context: context
 });
 line.setPosition(100, 100)
-    .drawLine(0, 100)
-    .drawLine(45, 50)
-    .drawLine(0, 100)
-    .drawLine(0, 150)
-    .drawLine(-30, 150)
-    .drawLine(0, 10)
-    .drawLine(10, 10)
     .drawLine(0, 50)
-    .drawLine(10, 50);
+    .drawLine(45, 50)
+    .drawLine(90, 50)
+    .drawLine(135,50)
+    .drawLine(180,50)
+    .drawLine(235,50)
+    .drawLine(270,50)
+    .drawLine(315,50)

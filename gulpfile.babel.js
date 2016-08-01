@@ -31,7 +31,7 @@ gulp.task('scripts', ['lint'], () =>
   .pipe(source('linework.min.js'))
   .pipe(buffer())
   .pipe(sourcemaps.init())
-  // .pipe(uglify())
+  .pipe(uglify())
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest('./dist/'))
 );

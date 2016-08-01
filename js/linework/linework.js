@@ -13,8 +13,15 @@
 * @since 0.0.1
 * @author Richard Tan <chardos@gmail.com>
 */
-import $ from 'jquery';
-import {isDefined, isObject, isNumber, isString, isFunction, wrapAround} from './helpers';
+import {
+  isDefined,
+  isObject,
+  isNumber,
+  isString,
+  isFunction,
+  wrapAround,
+  mergeOptions,
+} from './helpers';
 import LineworkCore from './core';
 import Point from './point';
 
@@ -33,7 +40,7 @@ export class Linework {
       debugMode:     false,
       startPosition: new Point(0, 0),
     };
-    const mergedOptions = $.extend({}, defaults, options);
+    const mergedOptions = mergeOptions(defaults, options);
 
     // Delegate the methods to another class to hide the methods from the public interface
     this.core = new LineworkCore(mergedOptions);
@@ -138,10 +145,20 @@ export class Linework {
     return this;
   }
 
+  /**
+   * Draw a curve
+   *
+   * @return {Linework}
+   */
   drawCurve(...params) {
     throw new Error('Not implemented error');
   }
 
+  /**
+   * Draw a circle
+   *
+   * @return {Linework}
+   */
   drawCircle(...params) {
     throw new Error('Not implemented error');
   }
