@@ -25,6 +25,11 @@ export default class LineworkCore {
 		this.reset();
 	}
 
+	/**
+	 * Set the canvas context
+	 *
+	 * @param {object} context
+	 */
 	setContext(context) {
 		this.context = context;
 	}
@@ -42,8 +47,8 @@ export default class LineworkCore {
 	}
 
 	hasReachedDestination() {
-		return this.currentPosition.X === this.destination.X
-				&& this.currentPosition.Y === this.destination.Y;
+		return this.currentPosition.x === this.destination.x
+				&& this.currentPosition.y === this.destination.y;
 	}
 
 	getNextPosition() {
@@ -51,7 +56,7 @@ export default class LineworkCore {
 			if (distance <= this.speed) {
 				return this.destination;
 			}
-			return this.currentPosition.moveByAngleAndDistance(this.angle, distance);
+			return this.currentPosition.moveByAngleAndDistance(this.angle, this.speed);
 	}
 
 	reset() {
@@ -61,14 +66,7 @@ export default class LineworkCore {
 		this.onComplete = null;
 	}
 
-	enqueueDestination(dest, onComplete) {
-		this.queue.push({
-			func: curPos => dest,
-			onComplete
-		});
-	}
-
-	enqueueFunction(func, onComplete) {
+	enqueue(func, onComplete) {
 		this.queue.push({
 			func: curPos => func(curPos),
 			onComplete
@@ -76,7 +74,7 @@ export default class LineworkCore {
 	}
 
 	drawLineTo(point, onComplete) {
-		this.enqueueDestination(point, onComplete);
+		this.enqueue(curPos => point, onComplete);
 		this.animate();
 	}
 
@@ -85,13 +83,12 @@ export default class LineworkCore {
 	}
 
 	drawLineAngle(degrees, distance, onComplete) {
-		const point = this.currentPosition.moveByAngleAndDistance(degrees, distance);
-		this.enqueueDestination(point, onComplete);
+		this.enqueue(curPos => curPos.moveByAngleAndDistance(degrees, distance), onComplete);
 		this.animate();
 	}
 
 	drawLineFunc(func, onComplete) {
-		this.enqueueFunction(func, onComplete);
+		this.enqueue(func, onComplete);
 		this.animate();
 	}
 

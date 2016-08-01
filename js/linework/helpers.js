@@ -20,6 +20,20 @@ export function getDirection(angle) {
   return 'unknown';
 }
 
+export function mergeOptions(...optionsList) {
+  let mergedOptions = {};
+
+  optionsList.forEach(options => {
+    for (let key in options) {
+      if (options.hasOwnProperty(key)) {
+        mergedOptions[key] = options[key];
+      }
+    }
+  });
+
+  return mergedOptions;
+}
+
 export function isDefined(variable) {
   return variable !== undefined && variable !== null;
 }
@@ -48,15 +62,18 @@ export function isFunction(variable) {
  * @returns {Point} The new position
  */
 export function wrapAround(pos) {
-	if (pos.x > window.innerWidth) {
-		pos.x = 0;
-	} else if (pos.x < 0) {
-		pos.x = window.innerWidth;
+  let x = pos.x;
+  let y = pos.y;
+
+	if (x > window.innerWidth) {
+		x = 0;
+	} else if (x < 0) {
+		x = window.innerWidth;
 	}
-	if (pos.y > window.innerHeight) {
-		pos.y = 0;
-	} else if (pos.y < 0) {
-		pos.y = window.innerHeight;
+	if (y > window.innerHeight) {
+		y = 0;
+	} else if (y < 0) {
+		y = window.innerHeight;
 	}
-	return pos;
+	return new Point(x, y);
 }
